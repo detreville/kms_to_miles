@@ -7,16 +7,16 @@ use crate::distance::{Int, Real, RealInterval, Rounding};
 #[derive(Clone, Debug)]
 pub struct Unit {
     name: String,
-    many: Real,
-    of: Real,
+    count: Real,
+    base: Real,
 }
 
 impl Unit {
-    pub fn new(name: &str, many: &Real, of: &Real) -> Self {
+    pub fn new(name: &str, count: &Real, base: &Real) -> Self {
         Self {
             name: name.to_owned(),
-            many: many.to_owned(),
-            of: of.to_owned(),
+            count: count.to_owned(),
+            base: base.to_owned(),
         }
     }
 
@@ -24,22 +24,22 @@ impl Unit {
         self.name.to_owned()
     }
 
-    pub fn many(&self) -> &Real {
-        &self.many
+    pub fn count(&self) -> &Real {
+        &self.count
     }
 
-    pub fn of(&self) -> &Real {
-        &self.of
+    pub fn base(&self) -> &Real {
+        &self.base
     }
 
-    pub fn size(&self) -> Real {
-        self.many * self.of
+    pub fn distance(&self) -> Real {
+        self.count * self.base
     }
 
     // Given a half-open interval over the reals, return a range of possible counts for this unit.
     pub fn count_range(&self, interval: &RealInterval, rounding: Rounding) -> RangeInclusive<Int> {
-        assert!(interval.to_owned().size() > Real::zero());
-        let reals = interval.to_owned() / self.size() - rounding.offsets();
+        assert!(interval.size() > Real::zero());
+        let reals = interval.to_owned() / self.distance() - rounding.offsets();
         reals.0.ceil().to_integer()..=reals.1.floor().to_integer()
     }
 }

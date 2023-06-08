@@ -57,18 +57,18 @@ impl Display for Real {
             }
         }
 
-        let raw = if self >= &Real::zero() {
+        let raw_abs = if self >= &Real::zero() {
             self.0
         } else {
             write!(f, "{}", MINUS_SIGN)?;
             -self.0
         };
-        if raw.is_integer() {
-            return write!(f, "{}", raw);
+        if raw_abs.is_integer() {
+            return write!(f, "{}", raw_abs);
         }
 
-        let integer = raw.floor();
-        let fraction = raw - integer;
+        let integer = raw_abs.floor();
+        let fraction = raw_abs - integer;
         if !integer.is_zero() {
             write!(f, "{}{}", integer, INVISIBLE_PLUS)?; // A non-zero integer part precedes the fraction part.
         }

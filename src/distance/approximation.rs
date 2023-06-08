@@ -19,12 +19,12 @@ impl Approximation {
         }
     }
 
-    pub fn count(&self) -> Int {
-        self.count
+    pub fn many(&self) -> Real {
+        self.unit.count().to_owned() * self.count
     }
 
-    pub fn many(&self) -> Real {
-        self.unit.many().to_owned() * self.count
+    pub fn distance(&self) -> Real {
+        self.many() * *self.unit().base()
     }
 
     pub fn unit(&self) -> Unit {
@@ -32,7 +32,7 @@ impl Approximation {
     }
 
     pub fn interval(&self) -> RealInterval {
-        (self.rounding.offsets() + self.count) * self.unit.size()
+        (self.rounding.offsets() + self.count) * self.unit.distance()
     }
 }
 
