@@ -4,12 +4,12 @@ use std::fmt::{Display, Formatter, Result};
 use crate::distance::{Real, Unit};
 
 #[derive(Clone, Copy, Debug)]
-pub enum InputUnit {
+pub enum UnitIn {
     Kms(),
     TenthKms(),
 }
 
-impl InputUnit {
+impl UnitIn {
     pub fn unit(&self) -> Unit {
         let one_km = &Real::one();
         match *self {
@@ -19,7 +19,7 @@ impl InputUnit {
     }
 }
 
-impl Display for InputUnit {
+impl Display for UnitIn {
     fn fmt(&self, f: &mut Formatter) -> Result {
         write!(f, "{}", self.unit().name())
     }

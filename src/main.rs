@@ -127,7 +127,7 @@ fn better_of(x: Option<Answer>, y: Option<Answer>) -> Option<Answer> {
     }
 }
 
-// The fractional overlap of one answer's input and output.
+// The fractional overlap of an answer's input and output.
 fn overlap_fraction(answer: &Answer) -> Real {
     let input_interval = answer.input.interval();
     let output_interval = answer.output.interval();

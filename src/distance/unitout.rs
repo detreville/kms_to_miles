@@ -5,14 +5,14 @@ use std::fmt::{Display, Formatter, Result};
 use crate::distance::{Real, Unit};
 
 #[derive(Clone, Copy, Debug, Sequence)]
-pub enum OutputUnit {
+pub enum UnitOut {
     Mile(),
     HalfMile(),
     QuarterMile(),
     EighthMile(),
 }
 
-impl OutputUnit {
+impl UnitOut {
     pub fn unit(&self) -> Unit {
         let one_mile = &(1609344, 1000000).into(); // One mile, in kms.
         match *self {
@@ -24,7 +24,7 @@ impl OutputUnit {
     }
 }
 
-impl Display for OutputUnit {
+impl Display for UnitOut {
     fn fmt(&self, f: &mut Formatter) -> Result {
         write!(f, "{}", self.unit().name())
     }
